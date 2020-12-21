@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Component for list of tags.
+ *
+ * Variables:
+ * - item: [array] The tags items. Each item is an object containing:
+ *   - content: [string] Text of the item.
+ */
+#}
+{% block tags %}
+  <ul class="au-tag-list">
+    {% for item in items %}
+      <li>
+        {% include '@govcms8_uikit/tags/tag.twig' with {
+          content: item.content
+        } only %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,203 @@
+uuid: 327405c1-8d0d-4725-9c07-9318c3bd8dbc
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_node_complete_dva_locations
+class: Drupal\node\Plugin\migrate\D7NodeTranslation
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Node
+migration_group: icon_migrate
+label: 'Node complete (DVA Locations)'
+source:
+  plugin: d7_node_complete
+  node_type: dva_locations
+process:
+  nid:
+    -
+      plugin: get
+      source: tnid
+  vid:
+    -
+      plugin: get
+      source: vid
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: und
+  title:
+    -
+      plugin: get
+      source: title
+  uid:
+    -
+      plugin: get
+      source: node_uid
+  status:
+    -
+      plugin: get
+      source: status
+  created:
+    -
+      plugin: get
+      source: created
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  promote:
+    -
+      plugin: get
+      source: promote
+  sticky:
+    -
+      plugin: get
+      source: sticky
+  revision_uid:
+    -
+      plugin: get
+      source: revision_uid
+  revision_log:
+    -
+      plugin: get
+      source: log
+  revision_timestamp:
+    -
+      plugin: get
+      source: timestamp
+  content_translation_source:
+    -
+      plugin: get
+      source: source_langcode
+  comment_node_dva_locations/0/status:
+    -
+      plugin: get
+      source: comment
+  field_state:
+    -
+      plugin: sub_process
+      source: field_state
+      process:
+        target_id: tid
+  field_address_line_1:
+    -
+      plugin: get
+      source: field_address_line_1
+  field_address_line_2:
+    -
+      plugin: get
+      source: field_address_line_2
+  field_city_town_suburb:
+    -
+      plugin: get
+      source: field_city_town_suburb
+  field_postal_address_line_1:
+    -
+      plugin: get
+      source: field_postal_address_line_1
+  field_postal_address_line_2:
+    -
+      plugin: get
+      source: field_postal_address_line_2
+  field_postal_state:
+    -
+      plugin: sub_process
+      source: field_postal_state
+      process:
+        target_id: tid
+  field_postal_city_town_suburb:
+    -
+      plugin: get
+      source: field_postal_city_town_suburb
+  field_post_code:
+    -
+      plugin: get
+      source: field_post_code
+  field_postal_post_code:
+    -
+      plugin: get
+      source: field_postal_post_code
+  field_free_call:
+    -
+      plugin: get
+      source: field_free_call
+  field_phone:
+    -
+      plugin: get
+      source: field_phone
+  field_fax:
+    -
+      plugin: get
+      source: field_fax
+  field_dva_opening_times:
+    -
+      plugin: get
+      source: field_dva_opening_times
+  field_dva_locations_website:
+    -
+      plugin: field_link
+      source: field_dva_locations_website
+  field_organisation_location:
+    -
+      plugin: get
+      source: field_organisation_location
+  field_by_appointment_only:
+    -
+      plugin: get
+      source: field_by_appointment_only
+    -
+      plugin: media_wysiwyg_filter
+  field_country_callers:
+    -
+      plugin: get
+      source: field_country_callers
+  field_department_or_agency_:
+    -
+      plugin: get
+      source: field_department_or_agency_
+  field_location_closed_times:
+    -
+      plugin: get
+      source: field_location_closed_times
+  field_location_open:
+    -
+      plugin: get
+      source: field_location_open
+  field_location_open_times:
+    -
+      plugin: get
+      source: field_location_open_times
+  field_location_services:
+    -
+      plugin: sub_process
+      source: field_location_services
+      process:
+        target_id: tid
+  field_scheduled_visit:
+    -
+      plugin: get
+      source: field_scheduled_visit
+    -
+      plugin: media_wysiwyg_filter
+  field_sub_category_location:
+    -
+      plugin: get
+      source: field_sub_category_location
+  field_location_notes:
+    -
+      plugin: get
+      source: field_location_notes
+destination:
+  plugin: 'entity_complete:node'
+  translations: true
+  default_bundle: dva_locations
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+    - upgrade_d7_node_type
+  optional:
+    - upgrade_d7_field_instance
+    - upgrade_d7_comment_field_instance

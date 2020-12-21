@@ -1,0 +1,112 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_url_alias
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Node
+migration_group: icon_migrate
+label: 'URL aliases'
+source:
+  plugin: d7_url_alias
+  constants:
+    slash: /
+process:
+  id:
+    -
+      plugin: get
+      source: pid
+  _path:
+    -
+      plugin: concat
+      source:
+        - constants/slash
+        - source
+  alias:
+    -
+      plugin: concat
+      source:
+        - constants/slash
+        - alias
+  node_translation:
+    -
+      plugin: explode
+      source: source
+      delimiter: /
+    -
+      plugin: extract
+      default: INVALID_NID
+      index:
+        - 1
+    -
+      plugin: migration_lookup
+      migration:
+        - upgrade_d7_node_complete_book
+        - upgrade_d7_node_complete_chatbot_data
+        - upgrade_d7_node_complete_content_page
+        - upgrade_d7_node_complete_dva_locations
+        - upgrade_d7_node_complete_forms
+        - upgrade_d7_node_complete_forms_page
+        - upgrade_d7_node_complete_navigation_page
+        - upgrade_d7_node_complete_news_article
+        - upgrade_d7_node_complete_primary_landing_page
+        - upgrade_d7_node_complete_publication
+        - upgrade_d7_node_complete_service_menu_item
+        - upgrade_d7_node_complete_webform
+    -
+      plugin: node_complete_node_translation_lookup
+  langcode:
+    -
+      plugin: null_coalesce
+      source:
+        - '@node_translation/1'
+        - language
+  path:
+    -
+      plugin: path_set_translated
+      source:
+        - '@_path'
+        - '@node_translation'
+destination:
+  plugin: 'entity:path_alias'
+migration_dependencies:
+  required: {  }
+  optional:
+    - upgrade_d7_node_complete_book
+    - upgrade_d7_node_complete_chatbot_data
+    - upgrade_d7_node_complete_content_page
+    - upgrade_d7_node_complete_dva_locations
+    - upgrade_d7_node_complete_event
+    - upgrade_d7_node_complete_event_details
+    - upgrade_d7_node_complete_event_media_item
+    - upgrade_d7_node_complete_forms
+    - upgrade_d7_node_complete_forms_page
+    - upgrade_d7_node_complete_legislation
+    - upgrade_d7_node_complete_navigation_page
+    - upgrade_d7_node_complete_news_article
+    - upgrade_d7_node_complete_page
+    - upgrade_d7_node_complete_primary_landing_page
+    - upgrade_d7_node_complete_publication
+    - upgrade_d7_node_complete_service_menu_item
+    - upgrade_d7_node_complete_webform
+    - upgrade_d7_node_complete_zz_donotuse_blog_article
+    - upgrade_d7_node_complete_zz_donotuse_category_landing_pag
+    - upgrade_d7_node_complete_zz_donotuse_factsheet
+    - upgrade_d7_node_complete_zz_donotuse_footer_teaser
+    - upgrade_d7_node_complete_zz_donotuse_reports
+    - upgrade_d7_node_complete_zz_donotuse_slide
+    - upgrade_d7_node_complete_book
+    - upgrade_d7_node_complete_chatbot_data
+    - upgrade_d7_node_complete_content_page
+    - upgrade_d7_node_complete_dva_locations
+    - upgrade_d7_node_complete_forms
+    - upgrade_d7_node_complete_forms_page
+    - upgrade_d7_node_complete_navigation_page
+    - upgrade_d7_node_complete_news_article
+    - upgrade_d7_node_complete_primary_landing_page
+    - upgrade_d7_node_complete_publication
+    - upgrade_d7_node_complete_service_menu_item
+    - upgrade_d7_node_complete_webform

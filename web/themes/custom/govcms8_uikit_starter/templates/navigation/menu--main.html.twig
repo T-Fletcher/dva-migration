@@ -1,0 +1,83 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+
+{# Attach UI-Kit libraries for the functionality. #}
+{{ attach_library('govcms8_uikit_starter/uikit-animate') }}
+{{ attach_library('govcms8_uikit_starter/uikit-accordion') }}
+
+{% import _self as menus %}
+
+{# Prepare side nav attributes. #}
+{% set side_nav_attributes = create_attribute() %}
+
+{# Add side nav classes. #}
+{%
+  set side_nav_classes = [
+  'au-side-nav',
+  'au-accordion',
+  side_nav_style ? side_nav_style,
+]
+%}
+
+<aside {{ side_nav_attributes.addClass(side_nav_classes) }} aria-label="side navigation">
+  <button
+    class="au-side-nav__toggle au-accordion__title au-accordion--closed"
+    aria-controls="nav-default"
+    aria-expanded="false"
+    onclick="return AU.accordion.Toggle( this )"
+  >
+    In this section
+  </button>
+  <div id="nav-default" class="au-side-nav__content au-accordion--closed au-accordion__body">
+    {% if parent_link %}
+      <h2 class="au-sidenav__title">
+        {{ link(parent_link.title, parent_link.url) }}
+      </h2>
+    {% endif %}
+    {{ menus.menu_links(items, attributes) }}
+  </div>
+</aside>
+
+{% macro menu_links(items, attributes) %}
+  {% import _self as menus %}
+  {% if items %}
+    <ul class="au-link-list">
+      {% for item in items %}
+        {%
+          set classes = [
+          item.in_active_trail ? 'active',
+        ]
+        %}
+        <li{{ item.attributes.addClass(classes) }}>
+          {% if item.is_active %}
+            <span>{{ item.title }}</span>
+          {% else %}
+            {{ link(item.title, item.url) }}
+          {% endif %}
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes) }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+

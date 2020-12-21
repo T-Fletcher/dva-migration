@@ -1,0 +1,6 @@
+vendor
+web/core
+web/modules/contrib
+web/private:
+web/sites/default/files
+web/themes/contrib

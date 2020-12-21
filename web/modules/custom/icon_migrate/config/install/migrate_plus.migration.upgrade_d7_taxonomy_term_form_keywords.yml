@@ -1,0 +1,141 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_taxonomy_term_form_keywords
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Asset
+migration_group: icon_migrate
+label: 'Taxonomy terms (DVA - Form keywords)'
+source:
+  plugin: d7_taxonomy_term
+  bundle: form_keywords
+process:
+  tid:
+    -
+      plugin: get
+      source: tid
+  vid:
+    -
+      plugin: migration_lookup
+      migration: upgrade_d7_taxonomy_vocabulary
+      source: vid
+  name:
+    -
+      plugin: get
+      source: name
+  description/value:
+    -
+      plugin: get
+      source: description
+  description/format:
+    -
+      plugin: get
+      source: format
+  weight:
+    -
+      plugin: get
+      source: weight
+  parent_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration_lookup
+      migration:
+        - upgrade_d7_taxonomy_term_dva_events
+        - upgrade_d7_taxonomy_term_preliminary_gulf_war_nominal_roll
+        - upgrade_d7_taxonomy_term_dva_news
+        - upgrade_d7_taxonomy_term_glossary
+        - upgrade_d7_taxonomy_term_services_available_at_this_location
+        - upgrade_d7_taxonomy_term_pub_doc
+        - upgrade_d7_taxonomy_term_states
+        - upgrade_d7_taxonomy_term_dva_secondary_child_groups
+        - upgrade_d7_taxonomy_term_dva_form_type
+        - upgrade_d7_taxonomy_term_dva_audience
+        - upgrade_d7_taxonomy_term_content_type
+        - upgrade_d7_taxonomy_term_chatbot_properties
+        - upgrade_d7_taxonomy_term_menu_category
+        - upgrade_d7_taxonomy_term_primary_landing_page_category
+        - upgrade_d7_taxonomy_term_media_release_category
+        - upgrade_d7_taxonomy_term_form_topic
+        - upgrade_d7_taxonomy_term_form_keywords
+        - upgrade_d7_taxonomy_term_publication_type
+        - upgrade_d7_taxonomy_term_support_type
+        - upgrade_d7_taxonomy_term_support_category
+        - upgrade_d7_taxonomy_term_category
+        - upgrade_d7_taxonomy_term_tags
+  parent:
+    -
+      plugin: default_value
+      default_value: 0
+      source: '@parent_id'
+  forum_container:
+    -
+      plugin: get
+      source: is_container
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  langcode:
+    -
+      plugin: get
+      source: language
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: form_keywords
+migration_dependencies:
+  required:
+    - upgrade_d7_taxonomy_vocabulary
+  optional:
+    - upgrade_d7_field_instance
+    - upgrade_d7_taxonomy_vocabulary
+    - upgrade_d7_taxonomy_term_tags
+    - upgrade_d7_taxonomy_term_category
+    - upgrade_d7_taxonomy_term_support_category
+    - upgrade_d7_taxonomy_term_support_type
+    - upgrade_d7_taxonomy_term_publication_type
+    - upgrade_d7_taxonomy_term_form_keywords
+    - upgrade_d7_taxonomy_term_form_topic
+    - upgrade_d7_taxonomy_term_media_release_category
+    - upgrade_d7_taxonomy_term_primary_landing_page_category
+    - upgrade_d7_taxonomy_term_menu_category
+    - upgrade_d7_taxonomy_term_chatbot_properties
+    - upgrade_d7_taxonomy_term_content_type
+    - upgrade_d7_taxonomy_term_dva_audience
+    - upgrade_d7_taxonomy_term_dva_form_type
+    - upgrade_d7_taxonomy_term_dva_secondary_child_groups
+    - upgrade_d7_taxonomy_term_states
+    - upgrade_d7_taxonomy_term_pub_doc
+    - upgrade_d7_taxonomy_term_services_available_at_this_location
+    - upgrade_d7_taxonomy_term_glossary
+    - upgrade_d7_taxonomy_term_dva_news
+    - upgrade_d7_taxonomy_term_preliminary_gulf_war_nominal_roll
+    - upgrade_d7_taxonomy_term_dva_events
+    - upgrade_d7_taxonomy_term_dva_events
+    - upgrade_d7_taxonomy_term_preliminary_gulf_war_nominal_roll
+    - upgrade_d7_taxonomy_term_dva_news
+    - upgrade_d7_taxonomy_term_glossary
+    - upgrade_d7_taxonomy_term_services_available_at_this_location
+    - upgrade_d7_taxonomy_term_pub_doc
+    - upgrade_d7_taxonomy_term_states
+    - upgrade_d7_taxonomy_term_dva_secondary_child_groups
+    - upgrade_d7_taxonomy_term_dva_form_type
+    - upgrade_d7_taxonomy_term_dva_audience
+    - upgrade_d7_taxonomy_term_content_type
+    - upgrade_d7_taxonomy_term_chatbot_properties
+    - upgrade_d7_taxonomy_term_menu_category
+    - upgrade_d7_taxonomy_term_primary_landing_page_category
+    - upgrade_d7_taxonomy_term_media_release_category
+    - upgrade_d7_taxonomy_term_form_topic
+    - upgrade_d7_taxonomy_term_form_keywords
+    - upgrade_d7_taxonomy_term_publication_type
+    - upgrade_d7_taxonomy_term_support_type
+    - upgrade_d7_taxonomy_term_support_category
+    - upgrade_d7_taxonomy_term_category
+    - upgrade_d7_taxonomy_term_tags

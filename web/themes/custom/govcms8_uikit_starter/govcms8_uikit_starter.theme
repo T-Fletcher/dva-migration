@@ -1,0 +1,325 @@
+<?php
+
+/**
+ * @file
+ * GovCMS 8 UI-Kit Starter main theme file.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatch;
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function govcms8_uikit_starter_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  // Create a section for My Theme settings.
+  $form['govcms8_uikit_starter_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Custom Settings'),
+    '#description' => t('Configure GovCMS 8 UI-Kit Starter options'),
+    '#weight' => -1000,
+    '#open' => TRUE,
+  ];
+
+  $form['govcms8_uikit_starter_settings']['theme__highlighted_layouts'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Layout highlighter'),
+    '#description' => t('Default GovCMS 8 layouts get borders for easier debugging. Do not forgot to turn off before going live.'),
+    '#default_value' => theme_get_setting('theme__highlighted_layouts'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['header_style'] = [
+    '#type' => 'select',
+    '#title' => t('Header style'),
+    '#options' => [
+      '' => t('-none-'),
+      'theme__header--dark' => t('Dark'),
+      'theme__header--alt' => t('Alt'),
+      'theme__header--dark-alt' => t('Dark alt'),
+    ],
+    '#description' => t('Set style for header.'),
+    '#default_value' => theme_get_setting('header_style'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['main_nav_style'] = [
+    '#type' => 'select',
+    '#title' => t('Main navigation style'),
+    '#options' => [
+      '' => t('-none-'),
+      'theme__main_nav--dark' => t('Dark'),
+      'theme__main_nav--alt' => t('Alt'),
+      'theme__main_nav--dark-alt' => t('Dark alt'),
+    ],
+    '#description' => t('Set style for main navigation.'),
+    '#default_value' => theme_get_setting('main_nav_style'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['side_nav_style'] = [
+    '#type' => 'select',
+    '#title' => t('Side navigation style'),
+    '#options' => [
+      '' => t('-none-'),
+      'theme__side_nav--dark' => t('Dark'),
+      'theme__side_nav--alt' => t('Alt'),
+      'theme__side_nav--dark-alt' => t('Dark alt'),
+    ],
+    '#description' => t('Set style for side navigation.'),
+    '#default_value' => theme_get_setting('side_nav_style'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['footer_style'] = [
+    '#type' => 'select',
+    '#title' => t('Footer style'),
+    '#options' => [
+      '' => t('-none-'),
+      'theme__footer--dark' => t('Dark'),
+      'theme__footer--alt' => t('Alt'),
+      'theme__footer--dark-alt' => t('Dark alt'),
+    ],
+    '#description' => t('Set style for footer.'),
+    '#default_value' => theme_get_setting('footer_style'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['local_task_style'] = [
+    '#type' => 'select',
+    '#title' => t('Local task style'),
+    '#options' => [
+      '' => t('-none-'),
+      'theme__local-task--dark' => t('Dark'),
+      'theme__local-task--alt' => t('Alt'),
+      'theme__local-task--dark-alt' => t('Dark alt'),
+    ],
+    '#description' => t('Set style for local task.'),
+    '#default_value' => theme_get_setting('local_task_style'),
+  ];
+
+  $form['govcms8_uikit_starter_settings']['logo_width'] = [
+    '#type' => 'number',
+    '#title' => t('Logo width (px)'),
+    '#description' => t('Set the width for logo in pixels.'),
+    '#default_value' => theme_get_setting('logo_width'),
+  ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function govcms8_uikit_starter_preprocess_page(&$variables) {
+  $theme_settings_mappings = [
+    'header_style' => [
+      'theme__header--dark' => 'au-body--dark au-header--dark',
+      'theme__header--alt' => 'au-body--alt au-header--alt',
+      'theme__header--dark-alt' => 'au-body--dark au-header--dark au-header--alt',
+    ],
+    'footer_style' => [
+      'theme__footer--dark' => 'au-body--dark au-footer--dark',
+      'theme__footer--alt' => 'au-body--alt au-footer--alt',
+      'theme__footer--dark-alt' => 'au-body--dark au-footer--dark au-footer--alt',
+    ],
+    'theme__highlighted_layouts' => [
+      1 => 'highlighted-layouts',
+    ],
+  ];
+  govcms8_uikit_starter_theme_settings_mappings($variables, $theme_settings_mappings);
+
+  // Check if current page is defined by Page manager.
+  $route = RouteMatch::createFromRequest(\Drupal::request());
+  $parameters = $route->getParameters();
+
+  // Check if node is panelized.
+  if ($parameters->has('node')) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = $parameters->get('node');
+    // If Panelizer is enabled for this node type.
+    if (is_object($node) && $node->hasField('panelizer')) {
+      // Set is_panelized variable.
+      $variables['is_panelized'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function govcms8_uikit_starter_form_alter(&$form, FormStateInterface $form_state) {
+  if ($form['#id'] === 'views-exposed-form-content-search-page-1') {
+    $form['#info']['filter-search_api_fulltext']['label'] = t('Enter search terms');
+    $form['actions']['submit']['#value'] = t('Submit search');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function govcms8_uikit_starter_preprocess_menu(&$variables) {
+  $theme_settings_mappings = [
+    'side_nav_style' => [
+      'theme__side_nav--dark' => 'au-body--dark au-side-nav--dark',
+      'theme__side_nav--alt' => 'au-body--alt au-side-nav--alt',
+      'theme__side_nav--dark-alt' => 'au-body--dark au-side-nav--dark au-side-nav--alt',
+    ],
+  ];
+
+  if (!empty($variables['items'])) {
+    // Find the active link and apply a flag.
+    $current_path = \Drupal::request()->getRequestUri();
+    govcms8_uikit_starter_theme_find_active_link($variables['items'], $current_path);
+
+    // Find the parent link (for menus starting at > depth 2).
+    $items_arr = array_values($variables['items']);
+    if (!empty($items_arr)) {
+      $parent_link_id = $items_arr[0]['original_link']->getParent();
+      if ($parent_link_id !== "") {
+        $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+        $parent_link = $menu_link_manager->createInstance($parent_link_id);
+        $parent_title = $parent_link->getTitle();
+        $parent_url = $parent_link->getUrlObject();
+        $variables['parent_link'] = [
+          "title" => $parent_title,
+          "url" => $parent_url,
+        ];
+      }
+    }
+  }
+
+  govcms8_uikit_starter_theme_settings_mappings($variables, $theme_settings_mappings);
+}
+
+/**
+ * Implements hook_preprocess_main__menu().
+ */
+function govcms8_uikit_starter_preprocess_menu__main(&$variables) {
+  $theme_settings_mappings = [
+    'main_nav_style' => [
+      'theme__main_nav--dark' => 'au-body--dark au-main-nav--dark',
+      'theme__main_nav--alt' => 'au-body--alt au-main-nav--alt',
+      'theme__main_nav--dark-alt' => 'au-body--dark au-main-nav--dark au-main-nav--alt',
+    ],
+  ];
+  govcms8_uikit_starter_theme_settings_mappings($variables, $theme_settings_mappings);
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function govcms8_uikit_starter_preprocess_block(&$variables) {
+  $theme_settings_mappings = [
+    'local_task_style' => [
+      'theme__local-task--dark' => 'au-body--dark',
+      'theme__local-task--alt' => 'au-body--alt',
+      'theme__local-task--dark-alt' => 'au-body--dark au-body--alt',
+    ],
+  ];
+  govcms8_uikit_starter_theme_settings_mappings($variables, $theme_settings_mappings);
+
+  // Prepare a variable for logo width to be used in the branding block
+  // template.
+  $logo_width = theme_get_setting('logo_width');
+  if ($logo_width) {
+    $variables['theme__logo_width'] = $logo_width . 'px';
+  }
+  else {
+    $variables['theme__logo_width'] = 'auto';
+  }
+
+  // Add a region variable to a block.
+  if (isset($variables["elements"]["#id"])) {
+    $block_id = $variables["elements"]["#id"];
+    $block = Block::load($block_id);
+
+    if ($block) {
+      if (empty($variables["content"]["#type"]) || $variables["content"]["#type"] !== "form") {
+        $variables["content"]["#attributes"]["data-region"] = $block->getRegion();
+      }
+    }
+  }
+
+  // Hide title on Main Menu.
+  if (isset($variables["elements"]["#id"])) {
+    if ($variables["elements"]["#id"] === "govcms8_uikit_starter_mainnavigation") {
+      $variables["hide_title"] = TRUE;
+    }
+  }
+
+  // Hide title on sidebar menus.
+  if (isset($variables["content"]["#menu_block_configuration"])) {
+    if ($variables["content"]["#menu_block_configuration"]["region"] === "sidebar") {
+      $variables["hide_title"] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_menu_alter().
+ */
+function govcms8_uikit_starter_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  if (isset($variables["attributes"]["data-region"])) {
+    $suggestions[] = $variables["theme_hook_original"] . "__" . $variables["attributes"]["data-region"];
+  }
+}
+
+/**
+ * Maps theme settings to variables usable in twig templates.
+ *
+ * @param array $variables
+ *   Theme variables array.
+ * @param array $theme_settings_mappings
+ *   Array of mapping.
+ */
+function govcms8_uikit_starter_theme_settings_mappings(array &$variables, array $theme_settings_mappings) {
+  foreach ($theme_settings_mappings as $variable => $options) {
+    $setting = theme_get_setting($variable);
+
+    if (isset($options[$setting])) {
+      $variables[$variable] = $options[$setting];
+    }
+  }
+}
+
+/**
+ * Add `is_active` boolean to menu item that matches given path.
+ *
+ * @param array $links
+ *   Link array.
+ * @param string $path
+ *   Path to check.
+ */
+function govcms8_uikit_starter_theme_find_active_link(array &$links, $path) {
+  foreach ($links as &$item) {
+    if ($item['url']->toString() === $path) {
+      $item['is_active'] = TRUE;
+    }
+    elseif (!empty($item['below'])) {
+      govcms8_uikit_starter_theme_find_active_link($item['below'], $path);
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_layout().
+ */
+function govcms8_uikit_starter_preprocess_layout(&$variables) {
+  /** @var \Drupal\Core\Layout\LayoutDefinition $layout */
+  $layout = $variables['layout'];
+  if (in_array($layout->id(), [
+    'stack_detail',
+    'stack_simple',
+  ])) {
+    // Add Design System Card classes to the stack layout.
+    $variables['attributes']['class'][] = 'au-card';
+    $variables['attributes']['class'][] = 'au-body';
+    $variables['attributes']['class'][] = 'au-card--shadow';
+
+    /** @var \Drupal\Core\Entity\FieldableEntityInterface $entity */
+    $entity = $variables['content']['#entity'];
+
+    // Only if Item url field is not empty or Display suite title link is set.
+    if (($entity->hasField('field_item_url') && !$entity->get('field_item_url')->isEmpty())
+        || !empty($variables['content']['title']['node_title'][0][0]['#context']['is_link'])
+    ) {
+      // Add au-card--clickable class to Card.
+      $variables['attributes']['class'][] = 'au-card--clickable';
+    }
+  }
+}

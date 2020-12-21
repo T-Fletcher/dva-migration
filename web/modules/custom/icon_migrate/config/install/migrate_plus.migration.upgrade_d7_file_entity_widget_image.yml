@@ -1,0 +1,49 @@
+uuid: cf75ec16-b911-4607-9b28-91260d6b9926
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_widget_image
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'File Entity media source field widget (Image)'
+source:
+  plugin: d7_file_entity_field_widget
+  constants:
+    entity_type_id: media
+    form_mode: default
+  schemes: public
+  types: image
+  destination_media_type_id: image
+process:
+  entity_type:
+    -
+      plugin: get
+      source: constants/entity_type_id
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  form_mode:
+    -
+      plugin: get
+      source: constants/form_mode
+  field_name:
+    -
+      plugin: get
+      source: source_field_name
+  options:
+    -
+      plugin: get
+      source: options
+destination:
+  plugin: component_entity_form_display
+migration_dependencies:
+  required: {  }
+  optional: {  }

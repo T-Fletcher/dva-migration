@@ -1,0 +1,23 @@
+uuid: 7efdfeb5-590a-448f-b699-d2f60fa24148
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.image_and_text
+    - field.storage.block_content.field_link_to
+  module:
+    - link
+id: block_content.image_and_text.field_link_to
+field_name: field_link_to
+entity_type: block_content
+bundle: image_and_text
+label: 'Link to'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

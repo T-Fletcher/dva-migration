@@ -1,0 +1,14 @@
+name: Icon Migrate
+description: Custom module to migrate Drupal 7 site to Drupal 8, by Icon Agency
+type: module
+core: 8.x
+dependencies:
+ - config
+ - migrate_plus
+ - migrate_drupal
+ - migrate_tools
+ - migrate_upgrade
+ - media_migration
+ - icon_migrate_block
+package: Migration
+version: 8.x-1.0

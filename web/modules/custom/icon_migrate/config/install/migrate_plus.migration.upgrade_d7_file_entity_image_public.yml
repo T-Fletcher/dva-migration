@@ -1,0 +1,151 @@
+uuid: f5727eb6-4435-4df8-abab-5e8f07645983
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_image_public
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Asset
+  - 'Media Migration'
+  - 'Media Entity'
+migration_group: icon_migrate
+label: 'File Entity migration (Image)'
+source:
+  plugin: d7_file_entity_item
+  type: image
+  scheme: public
+  destination_media_type_id: image
+process:
+  uuid:
+    -
+      plugin: media_migrate_uuid
+      source: fid
+    -
+      plugin: skip_on_empty
+      method: process
+  mid:
+    -
+      plugin: get
+      source: fid
+  uid:
+    -
+      plugin: get
+      source: uid
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  name:
+    -
+      plugin: get
+      source: filename
+  created:
+    -
+      plugin: get
+      source: timestamp
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  status:
+    -
+      plugin: get
+      source: status
+  field_media_image/target_id:
+    -
+      plugin: get
+      source: fid
+  field_media_image/display:
+    -
+      plugin: get
+      source: display
+  field_media_image/description:
+    -
+      plugin: get
+      source: description
+  field_media_image/width:
+    -
+      plugin: get
+      source: width
+  field_media_image/height:
+    -
+      plugin: get
+      source: height
+  thumbnail/target_id:
+    -
+      plugin: get
+      source: fid
+  thumbnail/width:
+    -
+      plugin: get
+      source: width
+  thumbnail/height:
+    -
+      plugin: get
+      source: height
+  alt_from_media:
+    -
+      plugin: skip_on_empty
+      source: field_file_image_alt_text
+      method: process
+    -
+      plugin: extract
+      index:
+        - '0'
+        - value
+      default: ''
+    -
+      plugin: default_value
+      default_value: null
+  thumbnail/alt:
+    -
+      plugin: null_coalesce
+      source:
+        - alt
+        - '@alt_from_media'
+      default_value: null
+  field_media_image/alt:
+    -
+      plugin: null_coalesce
+      source:
+        - alt
+        - '@alt_from_media'
+      default_value: null
+  title_from_media:
+    -
+      plugin: skip_on_empty
+      source: field_file_image_title_text
+      method: process
+    -
+      plugin: extract
+      index:
+        - '0'
+        - value
+      default: ''
+    -
+      plugin: default_value
+      default_value: null
+  thumbnail/title:
+    -
+      plugin: null_coalesce
+      source:
+        - title
+        - '@title_from_media'
+      default_value: null
+  field_media_image/title:
+    -
+      plugin: null_coalesce
+      source:
+        - title
+        - '@title_from_media'
+      default_value: null
+destination:
+  plugin: 'entity:media'
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+    - upgrade_d7_file
+  optional: {  }

@@ -1,0 +1,6 @@
+{
+  "name": "govcms8_uikit_starter",
+  "description": "GovCMS 8 UI Kit Starter local config file.",
+  "browserSyncProxy" : "http://dva2.docker.amazee.io",
+  "browserSyncPort" : 3000
+}

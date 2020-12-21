@@ -1,0 +1,53 @@
+uuid: b5713452-28ba-436f-b3fb-5a001f9b634e
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_formatter_image_private
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'File Entity media source field formatter (Image private)'
+source:
+  plugin: d7_file_entity_field_formatter
+  constants:
+    entity_type_id: media
+    view_mode: default
+  schemes: private
+  types: image
+  destination_media_type_id: image_private
+process:
+  entity_type:
+    -
+      plugin: get
+      source: constants/entity_type_id
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  view_mode:
+    -
+      plugin: get
+      source: constants/view_mode
+  field_name:
+    -
+      plugin: get
+      source: field_name
+  hidden:
+    -
+      plugin: get
+      source: hidden
+  options:
+    -
+      plugin: get
+      source: options
+destination:
+  plugin: component_entity_display
+migration_dependencies:
+  required: {  }
+  optional: {  }

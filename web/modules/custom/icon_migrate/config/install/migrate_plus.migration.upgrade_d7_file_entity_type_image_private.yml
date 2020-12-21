@@ -1,0 +1,48 @@
+uuid: ee89e7a6-4bc3-4e80-ada7-9cbcb4ec3009
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_type_image_private
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'File Entity to Media Bundle migration (Image private)'
+source:
+  plugin: d7_file_entity_type
+  constants:
+    status: true
+  schemes: private
+  types: image
+  destination_media_type_id: image_private
+process:
+  id:
+    -
+      plugin: get
+      source: bundle
+  label:
+    -
+      plugin: get
+      source: bundle_label
+  status:
+    -
+      plugin: get
+      source: constants/status
+  source:
+    -
+      plugin: get
+      source: source_plugin_id
+  source_configuration/source_field:
+    -
+      plugin: get
+      source: source_field_name
+destination:
+  plugin: 'entity:media_type'
+migration_dependencies:
+  required: {  }
+  optional: {  }

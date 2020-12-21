@@ -1,0 +1,29 @@
+uuid: e570b9ee-379a-44d6-8238-59284025ac5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.image_and_text
+    - field.storage.block_content.field_support_for
+    - taxonomy.vocabulary.support_category
+id: block_content.image_and_text.field_support_for
+field_name: field_support_for
+entity_type: block_content
+bundle: image_and_text
+label: 'Support for'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      support_category: support_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

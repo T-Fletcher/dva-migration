@@ -1,0 +1,154 @@
+////
+// Common styling for all layouts.
+// Using extends here, allows us to have templates without BS specific classes.
+// Leaving it open to switch more easily to different grid framework.
+////
+.page-layout__content-header-section {
+  @include AU-space(margin-bottom, $AU-grid-12-gutter-width);
+
+  .page-layout__content-header {
+    @extend .col-sm-12;
+    @include AU-space(min-height, 0); // As this region is 100% width, we don't need prevent the collapsing of it.
+  }
+}
+
+.page-layout__content-section {
+  .page-layout__content-top {
+    @extend .col-sm-12;
+    @include AU-space(margin-bottom, $AU-grid-12-gutter-width);
+  }
+
+  .page-layout__content-bottom {
+    @extend .col-sm-12;
+    @include AU-space(margin-top, $AU-grid-12-gutter-width);
+  }
+}
+
+// Select all layouts except .page-layout--edgy.
+.page-layout:not(.page-layout--edgy) {
+  .page-layout__content-section {
+    @extend .container;
+
+    @include AU-media(sm) {
+      width: $AU-media-sm - $AU-grid-12-gutter-width;
+    }
+    @include AU-media(md) {
+      width: $AU-media-md - $AU-grid-12-gutter-width;
+    }
+    @include AU-media(lg) {
+      width: $AU-media-lg - $AU-grid-12-gutter-width;
+    }
+  }
+}
+
+.page-layout__content-footer-section {
+  .page-layout__content-footer {
+    @extend .col-sm-12;
+    @include AU-space(min-height, 0); // As this region is 100% width, we don't need prevent the collapsing of it.
+  }
+}
+
+// Add space above footer region for all pages except the panelized ones.
+.au-body:not(.is-panelized) {
+  .au-footer {
+    @include AU-space(margin-top, 2unit);
+  }
+}
+
+// Add space below content region for all panelized pages except the edgy.
+.au-body.is-panelized .page-layout:not(.page-layout--edgy) {
+  @include AU-space(margin-bottom, 2unit);
+}
+
+////
+// Layouts specific styling.
+////
+.au-grid {
+  // Layout 4 8
+  .page-layout--48 {
+    .page-layout__content {
+      @extend .col-sm-8;
+      @extend .col-sm-push-4;
+    }
+
+    .page-layout__sidebar {
+      @extend .col-sm-4;
+      @extend .col-sm-pull-8;
+    }
+  }
+
+  // Layout 6 6
+  .page-layout--66 {
+    .page-layout__content {
+      @extend .col-sm-6;
+    }
+
+    .page-layout__sidebar {
+      @extend .col-sm-6;
+    }
+  }
+
+  // Layout 8 4
+  .page-layout--84 {
+    .page-layout__content {
+      @extend .col-sm-8;
+    }
+
+    .page-layout__sidebar {
+      @extend .col-sm-4;
+    }
+  }
+
+  // Layout 12 12
+  .page-layout--1212 {
+    .page-layout__content-top {
+      @include AU-space(min-height, 0);
+    }
+
+    .page-layout__content {
+      @extend .col-sm-12;
+    }
+
+    .page-layout__sidebar {
+      @extend .col-sm-12;
+    }
+
+    .page-layout__content-bottom {
+      @include AU-space(min-height, 0);
+    }
+  }
+
+  // Layout edgy
+  .page-layout--edgy {
+    .page-layout__content-section {
+      @extend .container-fluid;
+
+      .page-layout__content-top {
+        @include AU-space(min-height, 0);
+        @include AU-space(padding-left, 0); // Background goes to edge of the screen.
+        @include AU-space(padding-right, 0); // Background goes to edge of the screen.
+      }
+
+      .page-layout__content {
+        @extend .col-sm-12;
+        @include AU-space(padding-left, 0); // Background goes to edge of the screen.
+        @include AU-space(padding-right, 0); // Background goes to edge of the screen.
+      }
+
+      .page-layout__content-bottom {
+        @include AU-space(min-height, 0);
+        @include AU-space(padding-left, 0); // Background goes to edge of the screen.
+        @include AU-space(padding-right, 0); // Background goes to edge of the screen.
+      }
+    }
+
+    .page-layout__content-footer-section {
+      @extend .container-fluid;
+
+      .page-layout__content-footer {
+        @include AU-space(padding-left, 0); // Background goes to edge of the screen.
+        @include AU-space(padding-right, 0); // Background goes to edge of the screen.
+      }
+    }
+  }
+}

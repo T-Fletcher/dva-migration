@@ -1,0 +1,49 @@
+uuid: 131a5b31-1327-4d8e-bc2e-fae48a4dc4ad
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_widget_document_private
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'File Entity media source field widget (Document private)'
+source:
+  plugin: d7_file_entity_field_widget
+  constants:
+    entity_type_id: media
+    form_mode: default
+  schemes: private
+  types: document
+  destination_media_type_id: document_private
+process:
+  entity_type:
+    -
+      plugin: get
+      source: constants/entity_type_id
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  form_mode:
+    -
+      plugin: get
+      source: constants/form_mode
+  field_name:
+    -
+      plugin: get
+      source: source_field_name
+  options:
+    -
+      plugin: get
+      source: options
+destination:
+  plugin: component_entity_form_display
+migration_dependencies:
+  required: {  }
+  optional: {  }

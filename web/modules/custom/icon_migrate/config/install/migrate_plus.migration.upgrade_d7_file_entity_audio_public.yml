@@ -1,0 +1,75 @@
+uuid: c72bfddc-13ed-45a0-8b55-93fbbf0a635e
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_audio_public
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Asset
+  - 'Media Migration'
+  - 'Media Entity'
+migration_group: icon_migrate
+label: 'File Entity migration (Audio)'
+source:
+  plugin: d7_file_entity_item
+  type: audio
+  scheme: public
+  destination_media_type_id: audio
+process:
+  uuid:
+    -
+      plugin: media_migrate_uuid
+      source: fid
+    -
+      plugin: skip_on_empty
+      method: process
+  mid:
+    -
+      plugin: get
+      source: fid
+  uid:
+    -
+      plugin: get
+      source: uid
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  name:
+    -
+      plugin: get
+      source: filename
+  created:
+    -
+      plugin: get
+      source: timestamp
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  status:
+    -
+      plugin: get
+      source: status
+  field_media_audio_file/target_id:
+    -
+      plugin: get
+      source: fid
+  field_media_audio_file/display:
+    -
+      plugin: get
+      source: display
+  field_media_audio_file/description:
+    -
+      plugin: get
+      source: description
+destination:
+  plugin: 'entity:media'
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+    - upgrade_d7_file
+  optional: {  }

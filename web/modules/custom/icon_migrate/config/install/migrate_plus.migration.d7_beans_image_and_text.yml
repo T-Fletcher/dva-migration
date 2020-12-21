@@ -1,0 +1,53 @@
+id: d7_image_and_text_beans
+label: Custom blocks (image and text)
+migration_tags:
+  - 'Drupal 7'
+  - Block
+migration_group: icon_migrate
+source:
+  plugin: d7_bean
+  bean_type: image_and_text
+process:
+  info: label
+  field_title: title
+  body:
+    plugin: iterator
+    source: field_bean_text
+    process:
+      value: value
+      format:
+        plugin: default_value
+        default_value: full_html
+  field_additional_text:
+    plugin: iterator
+    source: field_additional_text
+    process:
+      value: value
+      format:
+        plugin: default_value
+        default_value: full_html
+  field_link_to:
+    plugin: iterator
+    source: field_link_to
+    process:
+      uri: url
+      title: title
+  field_image:
+    plugin: iterator
+    source: field_bean_image
+    process:
+      target_id: fid
+      alt: alt
+      title: title
+  field_support_for:
+    plugin: iterator
+    source: field_support_for
+    process:
+      target_id: tid
+destination:
+  plugin: entity:block_content
+  default_bundle: image_and_text
+  no_stub: true
+migration_dependencies:
+  required: {  }
+  optional: {  }

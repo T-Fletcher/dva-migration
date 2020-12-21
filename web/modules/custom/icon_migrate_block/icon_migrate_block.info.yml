@@ -1,0 +1,10 @@
+name: Icon Migrate Block
+description: Custom plugin to migrate Drupal 7 Beans to Drupal 8 Blocks, by Icon Agency
+type: module
+core: 8.x
+dependencies:
+- migrate_plus
+- migrate_drupal
+- migrate_tools
+package: Migration
+version: 8.x-1.0

@@ -1,0 +1,92 @@
+uuid: be9010d0-498f-472d-b7fc-996d187a2633
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_document_public
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Asset
+  - 'Media Migration'
+  - 'Media Entity'
+migration_group: icon_migrate
+label: 'File Entity migration (Document)'
+source:
+  plugin: d7_file_entity_item
+  type: document
+  scheme: public
+  destination_media_type_id: document
+process:
+  uuid:
+    -
+      plugin: media_migrate_uuid
+      source: fid
+    -
+      plugin: skip_on_empty
+      method: process
+  mid:
+    -
+      plugin: get
+      source: fid
+  uid:
+    -
+      plugin: get
+      source: uid
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  name:
+    -
+      plugin: get
+      source: filename
+  created:
+    -
+      plugin: get
+      source: timestamp
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  status:
+    -
+      plugin: get
+      source: status
+  field_title:
+    -
+      plugin: get
+      source: field_title
+  field_form_topic:
+    -
+      plugin: sub_process
+      source: field_form_topic
+      process:
+        target_id: tid
+  field_form_keywords:
+    -
+      plugin: sub_process
+      source: field_form_keywords
+      process:
+        target_id: tid
+  field_media_document/target_id:
+    -
+      plugin: get
+      source: fid
+  field_media_document/display:
+    -
+      plugin: get
+      source: display
+  field_media_document/description:
+    -
+      plugin: get
+      source: description
+destination:
+  plugin: 'entity:media'
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+    - upgrade_d7_field_instance
+    - upgrade_d7_file
+  optional: {  }

@@ -1,0 +1,53 @@
+uuid: 5456c9e3-e758-4568-a6bb-38abd9167445
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_source_field_config_document
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'Media source field instance configuration (Document)'
+source:
+  plugin: d7_file_entity_source_field_instance
+  constants:
+    entity_type_id: media
+    required: true
+  schemes: public
+  types: document
+  destination_media_type_id: document
+process:
+  field_name:
+    -
+      plugin: get
+      source: source_field_name
+  entity_type:
+    -
+      plugin: get
+      source: constants/entity_type_id
+  required:
+    -
+      plugin: get
+      source: constants/required
+  bundle:
+    -
+      plugin: get
+      source: bundle
+  label:
+    -
+      plugin: get
+      source: source_field_label
+  settings:
+    -
+      plugin: get
+      source: settings
+destination:
+  plugin: 'entity:field_config'
+migration_dependencies:
+  required: {  }
+  optional: {  }

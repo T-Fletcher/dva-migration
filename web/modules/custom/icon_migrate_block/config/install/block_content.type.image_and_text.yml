@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: image_and_text
+label: 'Image and text'
+revision: 0
+description: ''

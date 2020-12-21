@@ -1,0 +1,59 @@
+uuid: 39dd0b7c-5931-4abe-8256-72eb122b85d5
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_source_field_image_private
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'Media source field storage configuration (Image private)'
+source:
+  plugin: d7_file_entity_source_field_storage
+  constants:
+    entity_type_id: media
+    status: true
+    langcode: und
+    cardinality: 1
+  schemes: private
+  types: image
+  destination_media_type_id: image_private
+process:
+  field_name:
+    -
+      plugin: get
+      source: source_field_name
+  status:
+    -
+      plugin: get
+      source: constants/status
+  langcode:
+    -
+      plugin: get
+      source: constants/langcode
+  entity_type:
+    -
+      plugin: get
+      source: constants/entity_type_id
+  type:
+    -
+      plugin: get
+      source: field_type
+  cardinality:
+    -
+      plugin: get
+      source: constants/cardinality
+  settings:
+    -
+      plugin: get
+      source: settings
+destination:
+  plugin: 'entity:field_storage_config'
+migration_dependencies:
+  required: {  }
+  optional: {  }

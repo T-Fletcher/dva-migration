@@ -1,0 +1,30 @@
+{
+    "name": "govcms/govcms8_uikit_starter",
+    "description": "Provides uikit starter theme to govCMS8",
+    "type": "drupal-theme",
+    "license": "GPL-2.0+",
+    "require": {
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
+        "drupal/coder": "^8.2.12"
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "7.1"
+        },
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "scripts": {
+        "lint": "phpcs --colors --ignore=vendor,node_modules,css,js,.tugboat --standard=Drupal,DrupalPractice ."
+    }
+}

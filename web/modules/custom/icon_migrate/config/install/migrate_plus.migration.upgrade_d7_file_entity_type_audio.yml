@@ -1,0 +1,48 @@
+uuid: 33c099c6-a209-45ce-bf33-3368b68dd484
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_file_entity_type_audio
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+  - 'Media Migration'
+  - 'Media Configuration'
+migration_group: icon_migrate
+label: 'File Entity to Media Bundle migration (Audio)'
+source:
+  plugin: d7_file_entity_type
+  constants:
+    status: true
+  schemes: public
+  types: audio
+  destination_media_type_id: audio
+process:
+  id:
+    -
+      plugin: get
+      source: bundle
+  label:
+    -
+      plugin: get
+      source: bundle_label
+  status:
+    -
+      plugin: get
+      source: constants/status
+  source:
+    -
+      plugin: get
+      source: source_plugin_id
+  source_configuration/source_field:
+    -
+      plugin: get
+      source: source_field_name
+destination:
+  plugin: 'entity:media_type'
+migration_dependencies:
+  required: {  }
+  optional: {  }

@@ -1,0 +1,168 @@
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_field_formatter_settings
+class: Drupal\migrate_drupal\Plugin\migrate\FieldMigration
+field_plugin_method: alterFieldFormatterMigration
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Configuration
+migration_group: icon_migrate
+label: 'Field formatter configuration'
+source:
+  plugin: d7_field_instance_per_view_mode
+  constants:
+    third_party_settings: {  }
+process:
+  field_type_exists:
+    -
+      plugin: migration_lookup
+      migration: upgrade_d7_field
+      source:
+        - field_name
+        - entity_type
+    -
+      plugin: extract
+      index:
+        - 0
+    -
+      plugin: skip_on_empty
+      method: row
+  entity_type:
+    0:
+      plugin: get
+      source: entity_type
+    media_migration:
+      plugin: static_map
+      map:
+        file: media
+      bypass: true
+  bundle:
+    -
+      plugin: static_map
+      source: bundle
+      bypass: true
+      map:
+        comment_node_forum: comment_forum
+  view_mode:
+    -
+      plugin: migration_lookup
+      migration: upgrade_d7_view_modes
+      source:
+        - entity_type
+        - view_mode
+    -
+      plugin: extract
+      index:
+        - 1
+    -
+      plugin: static_map
+      bypass: true
+      map:
+        full: default
+  field_name:
+    -
+      plugin: get
+      source: field_name
+  options/label:
+    -
+      plugin: get
+      source: formatter/label
+  options/weight:
+    -
+      plugin: get
+      source: formatter/weight
+  plugin_id:
+    -
+      plugin: process_field
+      source: type
+      method: getPluginId
+  formatter_type:
+    -
+      plugin: process_field
+      source: type
+      method: getFieldFormatterType
+  options/type:
+    -
+      plugin: static_map
+      bypass: true
+      source:
+        - '@plugin_id'
+        - '@formatter_type'
+      map:
+        link_field:
+          link_default: link
+        media_image:
+          file_download_link: entity_reference_label
+          file_audio: entity_reference_entity_view
+          file_video: entity_reference_entity_view
+          file_default: entity_reference_entity_view
+          file_table: entity_reference_entity_view
+          file_url_plain: entity_reference_label
+          file_image_picture: entity_reference_entity_view
+          file_image_image: entity_reference_entity_view
+          file_rendered: entity_reference_entity_view
+          image: entity_reference_entity_view
+          picture: entity_reference_entity_view
+          picture_sizes_formatter: entity_reference_entity_view
+          entityreference_label: entity_reference_label
+          entityreference_entity_id: entity_reference_entity_id
+          entityreference_entity_view: entity_reference_entity_view
+        taxonomy_term_reference:
+          taxonomy_term_reference_link: entity_reference_label
+          taxonomy_term_reference_plain: entity_reference_label
+          taxonomy_term_reference_rss_category: entity_reference_label
+          i18n_taxonomy_term_reference_link: entity_reference_label
+          entityreference_entity_view: entity_reference_entity_view
+        file_entity:
+          file_image_picture: media_responsive_thumbnail
+          file_image_image: media_thumbnail
+          file_rendered: entity_reference_entity_view
+          file_download_link: entity_reference_label
+          file_audio: entity_reference_entity_view
+          file_video: entity_reference_entity_view
+          file_default: entity_reference_entity_view
+          file_table: entity_reference_entity_view
+          file_url_plain: entity_reference_label
+          entityreference_label: entity_reference_label
+          entityreference_entity_id: entity_reference_entity_id
+          entityreference_entity_view: entity_reference_entity_view
+        datetime:
+          date_default: datetime_default
+        entityreference:
+          entityreference_label: entity_reference_label
+          entityreference_entity_id: entity_reference_entity_id
+          entityreference_entity_view: entity_reference_entity_view
+    -
+      plugin: d7_field_type_defaults
+    -
+      plugin: skip_on_empty
+      method: row
+  hidden:
+    -
+      plugin: static_map
+      source: '@options/type'
+      map:
+        hidden: true
+      default_value: false
+  options/settings:
+    0:
+      plugin: default_value
+      source: formatter/settings
+      default_value: {  }
+    file_entity:
+      plugin: file_entity_field_formatter_settings
+  options/third_party_settings:
+    -
+      plugin: get
+      source: constants/third_party_settings
+destination:
+  plugin: component_entity_display
+migration_dependencies:
+  required:
+    - upgrade_d7_field_instance
+    - upgrade_d7_view_modes
+  optional:
+    - upgrade_d7_field
+    - upgrade_d7_view_modes
