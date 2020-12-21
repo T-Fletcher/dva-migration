@@ -1,0 +1,9 @@
+name: Media Migration Tools
+type: module
+description: 'Supporting module for Migrate Tools'
+package: Migrate
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:media_migration
+  - migrate_tools:migrate_tools

@@ -1,0 +1,20 @@
+id: d7_file_entity_type
+label: File Entity to Media Bundle migration
+migration_tags:
+  - Drupal 7
+  - Configuration
+deriver: Drupal\media_migration\Plugin\migrate\D7FileEntityConfigDeriver
+idMap:
+  plugin: smart_sql
+source:
+  plugin: d7_file_entity_type
+  constants:
+    status: true
+process:
+  id: bundle
+  label: bundle_label
+  status: constants/status
+  source: source_plugin_id
+  source_configuration/source_field: source_field_name
+destination:
+  plugin: entity:media_type

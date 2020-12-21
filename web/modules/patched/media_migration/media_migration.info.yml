@@ -1,0 +1,15 @@
+name: Media Migration
+type: module
+description: This module provides a Drupal 7 to 8 migration path for the Media module.
+package: Migrate
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:media
+  - drupal:migrate_drupal
+  - migrate_plus:migrate_plus
+  - smart_sql_idmap:smart_sql_idmap
+test_dependencies:
+  - entity_embed:entity_embed
+  - migrate_tools:migrate_tools
+  - migrate_upgrade:migrate_upgrade

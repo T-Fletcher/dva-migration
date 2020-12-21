@@ -1,0 +1,6 @@
+name: Media Migration oEmbed Test Helper
+type: module
+description: 'Provides functionality to suppress oEmbed related outbound requests.'
+package: Testing
+dependencies:
+  - drupal:media

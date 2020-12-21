@@ -1,0 +1,24 @@
+id: d7_file_entity_widget
+label: File Entity media source field widget
+migration_tags:
+  - Drupal 7
+  - Configuration
+deriver: Drupal\media_migration\Plugin\migrate\D7FileEntityConfigDeriver
+idMap:
+  plugin: smart_sql
+source:
+  plugin: d7_file_entity_field_widget
+  constants:
+    entity_type_id: media
+    form_mode: default
+process:
+  entity_type: 'constants/entity_type_id'
+  bundle: bundle
+  form_mode: 'constants/form_mode'
+  field_name: source_field_name
+  options: options
+destination:
+  plugin: component_entity_form_display
+migration_dependencies:
+  required:
+    - d7_file_entity_source_field_config

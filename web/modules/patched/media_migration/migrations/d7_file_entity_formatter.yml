@@ -1,0 +1,25 @@
+id: d7_file_entity_formatter
+label: File Entity media source field formatter
+migration_tags:
+  - Drupal 7
+  - Configuration
+deriver: Drupal\media_migration\Plugin\migrate\D7FileEntityConfigDeriver
+idMap:
+  plugin: smart_sql
+source:
+  plugin: d7_file_entity_field_formatter
+  constants:
+    entity_type_id: media
+    view_mode: default
+process:
+  entity_type: 'constants/entity_type_id'
+  bundle: bundle
+  view_mode: 'constants/view_mode'
+  field_name: field_name
+  hidden: hidden
+  options: options
+destination:
+  plugin: component_entity_display
+migration_dependencies:
+  required:
+    - d7_file_entity_source_field_config

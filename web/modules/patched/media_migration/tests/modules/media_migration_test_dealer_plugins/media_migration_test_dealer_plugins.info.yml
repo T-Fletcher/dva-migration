@@ -1,0 +1,6 @@
+name: Media Migration simple dealer plugin replacements
+type: module
+description: 'Provides simplified plugin replacements.'
+package: Testing
+dependencies:
+  - drupal:media_migration

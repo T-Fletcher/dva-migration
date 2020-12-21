@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Media migration module.
+ */
+
+use Drupal\Core\Extension\ModuleInstallerInterface;
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function media_migration_migration_plugins_alter(array &$migrations) {
+  \Drupal::service('media_migration.migrate_plugin_alterer')->alter($migrations);
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * The "$is_syncing" arg only available from Drupal core 8.9.
+ */
+function media_migration_modules_installed($modules, $is_syncing = FALSE) {
+  if (in_array('migrate_tools', $modules)) {
+    $module_installer = \Drupal::service('module_installer');
+    assert($module_installer instanceof ModuleInstallerInterface);
+    $module_installer->install(['media_migration_tools']);
+  }
+}
