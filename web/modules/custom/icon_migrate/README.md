@@ -90,11 +90,7 @@ After nodes are migrated, we are ready to migrate menus:
 
 ### 4 Blocks
 
-Migration of blocks depends on the *Icon Migrate Block* module, which needs to be enabled first (see Module Dependencies above). This module provides a custom plugin to migrate blocks. It will also create the custom block types that blocks are migrating to.
-
-To migrate blocks, run the following command:
-
-``drush migrate:import --group=icon_migrate --tag=Block``
+See README inside the *icon_migrate_block* module.
 
 ## Helpful command
 Run the following drush command to review all available configured migrations

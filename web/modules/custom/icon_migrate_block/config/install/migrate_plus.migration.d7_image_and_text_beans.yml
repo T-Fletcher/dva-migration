@@ -3,7 +3,7 @@ label: Custom blocks (image and text)
 migration_tags:
   - 'Drupal 7'
   - Block
-migration_group: icon_migrate
+migration_group: icon_migrate_block
 source:
   plugin: d7_bean
   bean_type: image_and_text
