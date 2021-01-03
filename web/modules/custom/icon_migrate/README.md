@@ -12,7 +12,6 @@ Version: 1.0, December 2020
  - migrate_tools
  - migrate_upgrade 
  - media_migration (patched)
- - icon_migrate_block
  
 ## Settings
 
@@ -32,6 +31,8 @@ $databases['migrate']['default'] = array (
      'driver' => 'mysql',
    );
 ```   
+
+Be sure the source site's file system settings (http://your.site/admin/config/media/file-system) are correct - the path to file is correctly set and all files can be opened from the pages on the source site.
 
 In ``migrate_plus.migration.upgrade_d7_files.yml``, be sure to enter the absolute path to the source Drupal site's *docroot* directory. The source and destination sections should look like:
 
