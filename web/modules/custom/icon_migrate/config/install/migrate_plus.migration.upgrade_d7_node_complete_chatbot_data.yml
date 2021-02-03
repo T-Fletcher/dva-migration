@@ -1,4 +1,3 @@
-uuid: 609b9793-2f17-45c5-bed1-9b5719ff4f1d
 langcode: en
 status: true
 dependencies: {  }
@@ -88,6 +87,34 @@ process:
     -
       plugin: get
       source: field_properties
+  field_chatbot_category:
+    -
+      plugin: sub_process
+      source: field_chatbot_category
+      process:
+        target_id: tid
+  field_business_area:
+    -
+      plugin: sub_process
+      source: field_business_area
+      process:
+        target_id: tid
+  field_group_inbox:
+    -
+      plugin: get
+      source: field_group_inbox
+  field_primary_contact_email:
+    -
+      plugin: get
+      source: field_primary_contact_email
+  field_chatbot_related_content:
+    -
+      plugin: get
+      source: field_chatbot_related_content
+  field_answer:
+    -
+      plugin: get
+      source: field_answer
 destination:
   plugin: 'entity_complete:node'
   translations: true
@@ -96,6 +123,10 @@ migration_dependencies:
   required:
     - upgrade_d7_user
     - upgrade_d7_node_type
+    - upgrade_d7_node_complete_content_page
+    - upgrade_d7_taxonomy_vocabulary
+    - upgrade_d7_taxonomy_term_dva_business_area
+    - upgrade_d7_taxonomy_term_site_categories
   optional:
     - upgrade_d7_field_instance
     - upgrade_d7_comment_field_instance
