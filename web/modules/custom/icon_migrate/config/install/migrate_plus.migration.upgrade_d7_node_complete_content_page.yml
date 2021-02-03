@@ -1,4 +1,3 @@
-uuid: d768a6a1-8e83-4914-8295-23239147cd72
 langcode: en
 status: true
 dependencies: {  }
@@ -7,8 +6,8 @@ class: Drupal\node\Plugin\migrate\D7NodeTranslation
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags:
-- 'Drupal 7'
-- Node
+  - 'Drupal 7'
+  - Node
 migration_group: icon_migrate
 label: 'Node complete (Content page)'
 source:
@@ -16,168 +15,191 @@ source:
   node_type: content_page
 process:
   nid:
-  -
-    plugin: get
-    source: tnid
+    -
+      plugin: get
+      source: tnid
   vid:
-  -
-    plugin: get
-    source: vid
+    -
+      plugin: get
+      source: vid
   langcode:
-  -
-    plugin: default_value
-    source: language
-    default_value: und
+    -
+      plugin: default_value
+      source: language
+      default_value: und
   title:
-  -
-    plugin: get
-    source: title
+    -
+      plugin: get
+      source: title
   uid:
-  -
-    plugin: get
-    source: node_uid
+    -
+      plugin: get
+      source: node_uid
   status:
-  -
-    plugin: get
-    source: status
+    -
+      plugin: get
+      source: status
   created:
-  -
-    plugin: get
-    source: created
+    -
+      plugin: get
+      source: created
   changed:
-  -
-    plugin: get
-    source: timestamp
+    -
+      plugin: get
+      source: timestamp
   promote:
-  -
-    plugin: get
-    source: promote
+    -
+      plugin: get
+      source: promote
   sticky:
-  -
-    plugin: get
-    source: sticky
+    -
+      plugin: get
+      source: sticky
   revision_uid:
-  -
-    plugin: get
-    source: revision_uid
+    -
+      plugin: get
+      source: revision_uid
   revision_log:
-  -
-    plugin: get
-    source: log
+    -
+      plugin: get
+      source: log
   revision_timestamp:
-  -
-    plugin: get
-    source: timestamp
+    -
+      plugin: get
+      source: timestamp
   content_translation_source:
-  -
-    plugin: get
-    source: source_langcode
+    -
+      plugin: get
+      source: source_langcode
   comment_node_content_page/0/status:
-  -
-    plugin: get
-    source: comment
+    -
+      plugin: get
+      source: comment
   body:
-  -
-    plugin: get
-    source: body
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
-  -
-    plugin: media_wysiwyg_filter
+    -
+      plugin: get
+      source: body
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
+    -
+      plugin: media_wysiwyg_filter
   field_factsheet_number:
-  -
-    plugin: get
-    source: field_factsheet_number
+    -
+      plugin: get
+      source: field_factsheet_number
   field_last_updated_date:
-  -
-    plugin: sub_process
-    source: field_last_updated_date
-    process:
-      value:
-        plugin: format_date
-        from_format: 'Y-m-d H:i:s'
-        to_format: Y-m-d
-        source: value
+    -
+      plugin: sub_process
+      source: field_last_updated_date
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: Y-m-d
+          source: value
   field_content_reference_type:
-  -
-    plugin: sub_process
-    source: field_content_reference_type
-    process:
-      target_id: tid
+    -
+      plugin: sub_process
+      source: field_content_reference_type
+      process:
+        target_id: tid
   field_top_task_label:
-  -
-    plugin: get
-    source: field_top_task_label
+    -
+      plugin: get
+      source: field_top_task_label
   field_tile_description:
-  -
-    plugin: get
-    source: field_tile_description
+    -
+      plugin: get
+      source: field_tile_description
   field_legislation:
-  -
-    plugin: get
-    source: field_legislation
+    -
+      plugin: get
+      source: field_legislation
   field_related_content:
-  -
-    plugin: get
-    source: field_related_content
+    -
+      plugin: get
+      source: field_related_content
   field_is_coming_soon:
-  -
-    plugin: get
-    source: field_is_coming_soon
+    -
+      plugin: get
+      source: field_is_coming_soon
   field_navigation_group:
-  -
-    plugin: sub_process
-    source: field_navigation_group
-    process:
-      target_id: tid
+    -
+      plugin: sub_process
+      source: field_navigation_group
+      process:
+        target_id: tid
   field_legacy_url:
-  -
-    plugin: get
-    source: field_legacy_url
+    -
+      plugin: get
+      source: field_legacy_url
   field_contains_rates:
-  -
-    plugin: get
-    source: field_contains_rates
+    -
+      plugin: get
+      source: field_contains_rates
   field_reading_level:
-  -
-    plugin: get
-    source: field_reading_level
+    -
+      plugin: get
+      source: field_reading_level
   field_si_update_dates:
-  -
-    plugin: get
-    source: field_si_update_dates
+    -
+      plugin: get
+      source: field_si_update_dates
   field_legacy_title:
-  -
-    plugin: get
-    source: field_legacy_title
+    -
+      plugin: get
+      source: field_legacy_title
+  field_business_area:
+    -
+      plugin: sub_process
+      source: field_business_area
+      process:
+        target_id: tid
+  field_group_inbox:
+    -
+      plugin: get
+      source: field_group_inbox
+  field_refreshed_date:
+    -
+      plugin: sub_process
+      source: field_refreshed_date
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: Y-m-d
+          source: value
+  field_primary_contact_email:
+    -
+      plugin: get
+      source: field_primary_contact_email
+  field_content_owner_notes:
+    -
+      plugin: get
+      source: field_content_owner_notes
 destination:
   plugin: 'entity_complete:node'
   translations: true
   default_bundle: content_page
 migration_dependencies:
   required:
-  - upgrade_d7_user
-  - upgrade_d7_node_type
+    - upgrade_d7_user
+    - upgrade_d7_node_type
+    - upgrade_d7_taxonomy_term_dva_business_area
   optional:
-  - upgrade_d7_field_instance
-  - upgrade_d7_comment_field_instance
+    - upgrade_d7_field_instance
+    - upgrade_d7_comment_field_instance
