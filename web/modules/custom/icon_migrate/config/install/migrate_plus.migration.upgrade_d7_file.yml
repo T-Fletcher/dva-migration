@@ -14,7 +14,8 @@ source:
   plugin: d7_file
   scheme: public
   constants:
-    source_base_path: /Users/jason/Sites/dva-govcms7
+    source_base_path: /Users/tim/repositories/dva/docroot
+    #source_base_path: 'https://dva-d7.local/'
 process:
   fid:
     -
@@ -61,7 +62,7 @@ process:
       source: uid
 destination:
   plugin: 'entity:file'
-  source_base_path: /Users/jason/Sites/dva-govcms7/sites/default/files/
+  source_base_path: /Users/tim/repositories/dva/docroot/sites/files/
 migration_dependencies:
   required: {  }
   optional: {  }
