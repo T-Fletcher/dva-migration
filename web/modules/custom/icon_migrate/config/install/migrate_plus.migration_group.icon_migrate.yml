@@ -8,13 +8,12 @@ source_type: 'Drupal 7'
 module: null
 shared_configuration:
   source:
-    key: drupal_7
+    key: drupal_7 # LEAVE THIS ALONE! This is NOT the database key in settings.php, instead it refers to the migrate module's own key
     database:
       driver: mysql
       username: root
       password: root
       host: 127.0.0.1
       port: ''
-      database: dvagovcms7
+      database: db_drupal7
       prefix: null
-
