@@ -55,11 +55,17 @@ PHP CLI memory limit needs to be at least 512MB. Use the command below to find o
 
 ## Import Migration Config
 
+**NOTE:** The config files imported from the ``icon_migrate`` module represents a subset of all the available migrations Drupal 8 can use. We only care about certain items after all.
+
+Before the migration can be run, the files containing the instructions must be imported into the D8 database. These must be imported again every time any changes are made to the files!
+
 Run the following drush command to *import* migration configuration
 
 ``drush config-import --partial --source=modules/custom/icon_migrate/config/install``
 
 ## Migrate Site Configuration
+
+**NOTE: Migrating configuration need only be done once**. Once you have run the migrations once and the config is stable, it's only really the content that will need refreshing.
 
 Run the following drush command to *migrate* the configuration of items to be migrated
 
@@ -69,13 +75,17 @@ You will see many errors in the output, they are largely due to modules that are
 
 ## Migrate Site Content
 
-After the configuration of migratable items, run the following commands to execute the actual content migration:
+After the configuration of migratable items, run the following commands to execute the actual content migration.
+
+**Migrate from here on only, once the config has been migrated once and the D8 site config is stable**
+
+_The order is important, as many entities depend on the existence of others to work._
 
 ### 1 Assets
 
 We will first migrate assets that are not nodes, for example, files and taxonomy terms. This will allow migrated node to later make correct references to them.
 
-``drush migrate:import --group=icon_migrate --tag=Content --execute-dependencies --continue-on-failure``
+``drush migrate:import --group=icon_migrate --tag=Asset --execute-dependencies --continue-on-failure``
 
 ### 2 Nodes
 
@@ -88,6 +98,8 @@ We are then ready to migrate nodes:
 After nodes are migrated, we are ready to migrate menus:
 
 ``drush migrate:import --group=icon_migrate --tag=Menu --execute-dependencies``
+
+**NOTE:** Menus can be migrated, but the links within are stored in the database and are not captured in config exports. Any customisations will need to be done again anytime this migration is run.
 
 ### 4 Blocks
 
@@ -104,5 +116,8 @@ This command should also display the status of the migration such as the number 
 ### 1. Admin menu
 The Admin menu will be messed up after the migration as the script will merge the source site's admin menu with that of the destination site. A quick manual fix is to delete all those source site's duplicated links from ``https://your.site/admin/structure/menu/manage/admin`` Those migrated items will have the delete action next to them.
 
-### 2. Media
+### 2. Configuration page
 There is a core bug that will prevent the Configuration page ``/admin/config`` from being loaded. This has been discussed on https://www.drupal.org/project/drupal/issues/3106659 and a patch is provided in comment #12 https://www.drupal.org/project/drupal/issues/3106659#comment-13578709 
+
+### 3. Structure page
+Due to clashing menu names, the Structure page will show no menu links until the duplicate links are manually removed (``/admin/structure/menu/manage/admin``)
