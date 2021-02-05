@@ -1,6 +1,6 @@
 # Icon Migrate
 ## For The Department of Veterans' Affairs
-Version: 1.0, December 2020
+Version: 1.1, February 2021
 
 ## Prerequisite
 
@@ -10,8 +10,12 @@ Version: 1.0, December 2020
  - migrate_plus
  - migrate_drupal
  - migrate_tools
- - migrate_upgrade 
- - media_migration (patched)
+ - migrate_upgrade
+ - media_migration
+ - smart_sql_idmap
+ - field_group
+ - field_group_migrate
+ - media_migration (patched, included in this repo)
  
 ## Settings
 
