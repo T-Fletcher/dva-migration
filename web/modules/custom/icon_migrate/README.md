@@ -97,6 +97,14 @@ We are then ready to migrate nodes:
 
 ``drush migrate:import --group=icon_migrate --tag=Node --execute-dependencies``
 
+Once the nodes have migrated, if they all appear to live in the root of the site (`/mypage` instead of `/some-path/mypage`):
+
+1. Roll back the url alias migration: `drush migrate:rollback upgrade_d7_url_alias`
+2. Visit the URL Alias screen and bulk-delete all aliases (`/admin/config/search/path`)
+3. Run the URL alias migration again: `drush migrate:import upgrade_d7_url_alias`
+
+This will clean out root-level paths that nodes may add as Aliases, and fix missing breadcrumbs. 
+
 ### 3 Menus
 
 After nodes are migrated, we are ready to migrate menus:
@@ -104,6 +112,8 @@ After nodes are migrated, we are ready to migrate menus:
 ``drush migrate:import --group=icon_migrate --tag=Menu --execute-dependencies``
 
 **NOTE:** Menus can be migrated, but the links within are stored in the database and are not captured in config exports. Any customisations will need to be done again anytime this migration is run.
+
+Menus must be added after Nodes, as the links will not be migrated if they don't lead somewhere. Rolling back and re-running the migration can also help restore missing menu positions for migrated nodes. 
 
 ### 4 Blocks
 
