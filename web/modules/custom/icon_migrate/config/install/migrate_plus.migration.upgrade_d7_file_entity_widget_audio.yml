@@ -9,6 +9,7 @@ cck_plugin_method: null
 migration_tags:
   - 'Drupal 7'
   - Configuration
+  - File
   - 'Media Migration'
   - 'Media Configuration'
 migration_group: icon_migrate

@@ -8,6 +8,7 @@ cck_plugin_method: null
 migration_tags:
   - 'Drupal 7'
   - Asset
+  - Taxonomy
 migration_group: icon_migrate
 label: 'Taxonomy terms (RAP item category)'
 source:
