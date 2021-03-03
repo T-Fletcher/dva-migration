@@ -85,17 +85,21 @@ After the configuration of migratable items, run the following commands to execu
 
 _The order is important, as many entities depend on the existence of others to work._
 
-### 1 Assets
+### 1. Assets
 
 We will first migrate assets that are not nodes, for example, files and taxonomy terms. This will allow migrated node to later make correct references to them.
 
 ``drush migrate:import --group=icon_migrate --tag=Asset --execute-dependencies --continue-on-failure``
 
-### 2 Nodes
+### 2. Nodes
 
 We are then ready to migrate nodes:
 
 ``drush migrate:import --group=icon_migrate --tag=Node --execute-dependencies``
+
+**NOTE:** Some content requires changes after being imported. If there are only a few nodes of a certain Content Type (like Service Menu Items), get them working locally and they will be captured in the database dump - don't re-run their migration and undo all that work. 
+
+To remove a content type from the migration group, simply remove the 'Node' tag in it's migration file.
 
 Once the nodes have migrated, if they all appear to live in the root of the site (`/mypage` instead of `/some-path/mypage`):
 
@@ -105,7 +109,7 @@ Once the nodes have migrated, if they all appear to live in the root of the site
 
 This will clean out root-level paths that nodes may add as Aliases, and fix missing breadcrumbs. 
 
-### 3 Menus
+### 3. Menus
 
 After nodes are migrated, we are ready to migrate menus:
 
@@ -115,11 +119,12 @@ After nodes are migrated, we are ready to migrate menus:
 
 Menus must be added after Nodes, as the links will not be migrated if they don't lead somewhere. Rolling back and re-running the migration can also help restore missing menu positions for migrated nodes. 
 
-### 4 Blocks
+### 4. Blocks
 
 See README inside the *icon_migrate_block* module.
 
-## Helpful command
+## Monitoring migration progress
+
 Run the following drush command to review all available configured migrations
 
 ``drush ms | grep icon_migrate``
@@ -128,10 +133,13 @@ This command should also display the status of the migration such as the number 
 ## Known issues
 
 ### 1. Admin menu
+
 The Admin menu will be messed up after the migration as the script will merge the source site's admin menu with that of the destination site. A quick manual fix is to delete all those source site's duplicated links from ``https://your.site/admin/structure/menu/manage/admin`` Those migrated items will have the delete action next to them.
 
 ### 2. Configuration page
+
 There is a core bug that will prevent the Configuration page ``/admin/config`` from being loaded. This has been discussed on https://www.drupal.org/project/drupal/issues/3106659 and a patch is provided in comment #12 https://www.drupal.org/project/drupal/issues/3106659#comment-13578709 
 
 ### 3. Structure page
+
 Due to clashing menu names, the Structure page will show no menu links until the duplicate links are manually removed (``/admin/structure/menu/manage/admin``)
